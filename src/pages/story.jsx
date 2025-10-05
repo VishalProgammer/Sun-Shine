@@ -24,7 +24,7 @@ export function Story(){
     function next(){
         a1.current.play();
         setindex(prevIndex => prevIndex + 1)
-        aa.current.volume = 0.1
+        aa.current.volume = 0.15
         aa.current.play()
     }
     function back(){
@@ -186,7 +186,7 @@ export function Story(){
         return(
             <div id="main-st2" ref={scene}>
                 <div id="story-img">
-                    <img src="./farmer1.gif" alt="farmer 1.gif" />
+                    <img  id="img2" src="./farmer1.gif" alt="farmer 1.gif" />
                 </div>
                 <div id="story-text">
                     <pre>His </pre>
