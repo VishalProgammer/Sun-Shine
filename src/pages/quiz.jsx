@@ -1,0 +1,269 @@
+import React, { Suspense, useEffect, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Environment } from '@react-three/drei';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
+import { Sun } from '../../Sun';
+import "./quiz.css"
+import { Choices } from './choices';
+
+
+export function Quiz(){
+    const [score, setscore] = useState(0)
+    const [index, setindex] = useState(0)
+    const [menu, setmenu] = useState(false)
+
+
+    const ques = [
+        "1. What is “space weather”?", 
+        "2. What are two main causes of space weather?",
+        "3. How can space weather affect a farmers?", 
+        "4. Why does Alex use GPS on his farm?", 
+        "5. What happens when a solar flare hits Earth?", 
+        "6. Which of these people are also affected by space weather?",
+        "7. What beautiful effect can space weather create on Earth?",
+        "8. How far is the Sun from Earth?",
+        "9. What is NASA doing to help people?",
+        "10. What can farmers do to protect their work from space weather?",
+        ]
+    const opts = [
+        [
+            "A) Weather that happens only on Mars",
+            "B) Changes in the space environment caused by the Sun",
+            "C) Storms that happen in outer space with rain and clouds",
+            "D) A movie about astronauts"],
+        [
+            "A) Solar flares and coronal mass ejections (CMEs)",
+            "B) Tornadoes and lightning",
+            "C) Earthquakes and volcanoes",
+            "D) Clouds and rainfall"],
+        [
+            "A) It makes his tractor rusty",
+            "B) It changes the color of crops",
+            "C) It can disrupt GPS and weather forecasting",
+            "D) It increases rainfall"],
+        [
+            "A) To play games while farming",
+            "B) To guide tractors and monitor crops more accurately",
+            "C) To check social media",
+            "D) To call his friends"],
+        [
+            "A) It creates giant waves in oceans",
+            "B) It can disturb satellites and radio signals",
+            "C) It makes trees grow faster",
+            "D) It causes snowstorms"],
+        [
+            "A) Only astronauts",
+            "B) Only pilots and scientists",
+            "C) Farmers, pilots, astronauts, and power operators",
+            "D) Only people near the ocean"],
+        [
+            "A) Tornadoes",
+            "B) Rainbows",
+            "C) Auroras (Northern Lights)",
+            "D) Hailstorms"],
+        [
+            "A) 9,300 miles",
+            "B) 93,000 miles",
+            "C) 93 million miles",
+            "D) 930 million miles"],
+        [
+            "A) Making weather jokes",
+            "B) Studying the Sun and predicting solar storms early",
+            "C) Sending farmers to space",
+            "D) Building new farms on the Moon"],
+        [
+            "A) Turn off GPS and wait",
+            "B) Stay informed using NASA and local alerts",
+            "C) Ignore space weather completely",
+            "D) Move farms underground"]
+        ]
+
+    function hoverbg(element) {
+        element.addEventListener('mouseover', function() {
+            element.style.backgroundColor = 'lightgreen'; 
+          });
+    }
+    function right(){
+        const box = document.getElementById('right-opt');
+        box.style.backgroundColor = 'lightgreen'
+        box.addEventListener('mouseover', function() {
+            box.style.backgroundColor = 'lightgreen'; 
+          });
+        setTimeout(() => {
+            setindex(prevIndex => prevIndex + 1)
+            setscore(prevScore => prevScore  + 20)
+            box.style.backgroundColor = 'rgb(34, 33, 32)'
+          }, 1000);
+
+        
+
+    }
+    function wrong(){
+        const box = document.getElementById('right-opt');
+        box.style.backgroundColor = 'lightgreen'
+
+        box.addEventListener('mouseover', function() {
+            box.style.backgroundColor = 'lightgreen'; 
+          });
+          
+        setTimeout(() => {
+            setindex(prevIndex => prevIndex + 1)
+            setscore(prevScore => prevScore  - 20)
+            box.style.backgroundColor = 'rgb(34, 33, 32)'
+          }, 1000);
+        
+    }
+    
+
+    function restart() {
+        setindex(0)
+        setscore(0)
+    }
+
+    function toHome(){
+        setmenu(true)
+        setindex(99)
+    }
+
+    function Result(){
+
+        
+        return(<div  id="main-q">
+            <div id="bg-q">
+            <Canvas  camera={{ position: [0, 2, 25], fov: 75 }}>
+                <Suspense fallback={null}>
+                                
+                    <ambientLight intensity={0.5} />
+                                
+                    <directionalLight position={[10, 10, 5]} intensity={1} />
+                                
+                    <Sun />
+                    <EffectComposer>
+                        <Bloom 
+                            intensity={1.2}             
+                            luminanceThreshold={1}   
+                            luminanceSmoothing={0.2}  
+                        />
+                    </EffectComposer>
+            
+                    <Environment preset="sunset" />
+            
+                    <OrbitControls enableZoom={false} enablePan={false} />
+            
+                </Suspense>
+            </Canvas>
+            </div>
+            
+            <div id="body-q">
+                
+                <h1>Sun Shine Quiz</h1>
+                <hr style={{width:"60%", margin:"0 auto"}}/>
+                <div id="result">
+                    <br />
+                    <br />
+                    <h1>Quiz is Finished!!</h1>
+                    <h2>Score:{score}</h2>
+                    <br />
+                    <button onClick={restart}>Replay</button>
+                    <br /> <br />
+                    <button onClick={toHome}>Home</button>
+                </div>
+            </div>
+            <div id="score"></div>
+            
+        </div>)
+    }
+
+    function Ques(){
+
+        return(<div  id="main-q">
+            <div id="bg-q">
+            <Canvas  camera={{ position: [0, 2, 25], fov: 75 }}>
+                <Suspense fallback={null}>
+                                
+                    <ambientLight intensity={0.5} />
+                                
+                    <directionalLight position={[10, 10, 5]} intensity={1} />
+                                
+                    <Sun />
+                    <EffectComposer>
+                        <Bloom 
+                            intensity={3}             
+                            luminanceThreshold={0.7}   
+                            luminanceSmoothing={1.5}  
+                        />
+                    </EffectComposer>
+            
+                    <Environment preset="sunset" />
+            
+                    <OrbitControls enableZoom={false} enablePan={false} />
+            
+                </Suspense>
+            </Canvas>
+            </div>
+            <div><button id='back-q' onClick={toHome}>back</button></div>
+            <div id="body-q">
+                
+                <h1>Sun Shine Quiz</h1>
+                <p>Score:{score}</p>
+                <hr style={{width:"60%", margin:"0 auto"}}/>
+                <div id='ques'>
+                    <h2>{ques[index]}</h2>
+                    <br />
+                    { [0, 3, 4, 8, 9].includes(index) && (
+                        <>
+                        <div className="opt-row"> {/* Changed id to className */}
+                            <li onClick={wrong} id='wrong-opt'>{opts[index][0]}</li>
+                            <li onClick={right} id='right-opt'>{opts[index][1]}</li>
+                        </div>
+                        <div className="opt-row"> {/* Changed id to className */}
+                            <li onClick={wrong} id='wrong-opt'>{opts[index][2]}</li>
+                            <li onClick={wrong} id='wrong-opt'>{opts[index][3]}</li>
+                        </div>
+                        </>
+                    ) }
+                    { [1].includes(index) && (
+                        <>
+                        <div className="opt-row"> {/* Changed id to className */}
+                            <li onClick={right} id='right-opt'>{opts[index][0]}</li>
+                            <li onClick={wrong} id='wrong-opt'>{opts[index][1]}</li>
+                        </div>
+                        <div className="opt-row"> {/* Changed id to className */}
+                            <li onClick={wrong} id='wrong-opt'>{opts[index][2]}</li>
+                            <li onClick={wrong} id='wrong-opt'>{opts[index][3]}</li>
+                        </div>
+                        </>
+                    ) }
+                    { [2, 5, 6, 7].includes(index) && (
+                        <>
+                        <div className="opt-row"> {/* Changed id to className */}
+                            <li onClick={wrong} id='wrong-opt'>{opts[index][0]}</li>
+                            <li onClick={wrong} id='wrong-opt'>{opts[index][1]}</li>
+                        </div>
+                        <div className="opt-row"> {/* Changed id to className */}
+                            <li onClick={right} id='right-opt'>{opts[index][2]}</li>
+                            <li onClick={wrong} id='wrong-opt'>{opts[index][3]}</li>
+                        </div>
+                        </>
+                    ) }
+                </div>
+            </div>
+            <div id="score"></div>
+            
+        </div>
+        )
+    }
+if(index<=9){
+    return(<Ques/>)
+
+}
+else if (index == 99){
+    return (<Choices/>)
+}
+else if(index>9){
+    return(<Result/>)
+}
+
+
+
+}

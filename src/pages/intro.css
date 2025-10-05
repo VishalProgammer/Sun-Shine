@@ -1,0 +1,56 @@
+#intro-con{
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#canva-con-i{
+    width: 60%;
+    height: 100%;
+
+}
+
+#des-con-i{
+    width: 40%;
+    height: 100%;
+    align-content: center;
+    text-align: center;
+    
+}
+
+#des-con-i p{
+    text-align: center;
+    font-size: xx-large;
+}
+
+#des-con-i button{
+    text-align: center;
+    font-size: large;
+}
+
+@media(max-width:1000px) {
+    #des-con-i{
+        width: 100%;
+        align-content: center;
+        text-align: center;
+        
+    } 
+    #canva-con-i{
+        width: 100%;
+        align-content: center;
+        text-align: center;
+    }
+    #intro-con{
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
