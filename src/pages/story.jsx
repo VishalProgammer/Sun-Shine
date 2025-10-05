@@ -24,7 +24,7 @@ export function Story(){
     function next(){
         a1.current.play();
         setindex(prevIndex => prevIndex + 1)
-        aa.current.volume = 0.15
+        aa.current.volume = 0.4
         aa.current.play()
     }
     function back(){
